@@ -95,15 +95,19 @@ def load_books_tags(app):
     :type app: logic
     """
     # TODO: Mods de Est-1, Est-2 y Est-3 en el Lab 2
-    pass
-
+    booktagfile = os.path.join(data_dir, filename)
+    input_file = csv.DictReader(open(booktagfile, encoding="utf-8"))
+    catalog = create_book_tag_list(catalog)
+    for booktag in input_file:
+        add_book_tag(catalog, booktag)
+    return book_tag_size(catalog)
 
 def first_book(app):
     """
     Devuelve el primer libro cargado en el conjunto de libros
     """
     # TODO: Mods de Est-1, Est-2 y Est-3 en el Lab 2
-    pass
+    return set.get_first_element(catalog["books"])
 
 
 def last_book(app):
@@ -111,7 +115,7 @@ def last_book(app):
     """
     Devuelve el último libro cargado en el conjunto de libros
     """
-    pass
+    return set.get_last_element(catalog["books"])
 
 
 # Se crea el controlador asociado a la vista
@@ -149,7 +153,9 @@ def main():
 
         elif int(inputs[0]) == 3:
             # TODO: Mods de Est-3 en el Lab 2
-            pass
+            print("Cargando información de Book-Tags...")
+            booktags=load_books_tags(app)
+            print("Total de Book-Tags cargados: " + str(booktags))
 
         elif int(inputs[0]) == 0:
             working = False
